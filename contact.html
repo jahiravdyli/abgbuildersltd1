@@ -401,7 +401,7 @@
   </div>
 </div>
 
-  <input type="hidden" name="_redirect" <a href="thank-you.html">About Us</a> >
+   <input type="hidden" name="_redirect" value="https://abgbuildersltd.co.uk/thank-you.html">
   
 </form>
 <!-- WHY CONTACT -->
@@ -472,45 +472,5 @@
   </div>
 </footer>
 
-<script>
-  // Hamburger
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-
-  // AJAX form submission for Netlify Forms
-  const form = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('submit-btn');
-  const successMsg = document.getElementById('form-success');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
-
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(form)).toString(),
-      });
-
-      if (response.ok) {
-        form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => { el.value = ''; });
-        successMsg.style.display = 'block';
-        submitBtn.textContent = 'Sent ✓';
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch (err) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Enquiry →';
-      alert('Sorry, there was a problem sending your message. Please call us directly on 07974 903 361.');
-    }
-  });
-</script>
 </body>
 </html>

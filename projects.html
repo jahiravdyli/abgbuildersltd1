@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — ABG Builders London</title>
+<meta name="description" content="Browse ABG Builders' completed projects across London — extensions, loft conversions, refurbishments, new builds, painting and decorating.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+
+  /* ---- FILTER BAR ---- */
+  .filter-bar {
+    background: var(--off-white);
+    padding: 28px 52px;
+    border-bottom: 1px solid var(--mid-grey);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1.5px solid var(--mid-grey);
+    color: #555;
+    padding: 8px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--off-white);
+  }
+
+  .filter-btn.active {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--black);
+  }
+
+  /* ---- PROJECTS GRID ---- */
+  .projects-section {
+    padding: 64px 52px 100px;
+    background: var(--off-white);
+  }
+
+  .category-group {
+    margin-bottom: 80px;
+  }
+
+  .category-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .category-heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .category-heading h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+  }
+
+  .category-count {
+    background: var(--amber);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 3px 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .projects-masonry {
+    display: grid;
+    gap: 4px;
+  }
+
+  .projects-masonry.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .projects-masonry.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: #ccc;
+    display: block;
+    text-decoration: none;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .project-card.tall img { height: 420px; }
+  .project-card.short img { height: 240px; }
+
+  .project-card:hover img { transform: scale(1.04); }
+
+  .project-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,15,15,0.88) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 22px;
+  }
+
+  .project-card:hover .project-card-overlay { opacity: 1; }
+
+  .project-card-info {}
+
+  .project-card-cat {
+    font-size: 0.68rem;
+    color: var(--amber);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .project-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    color: var(--off-white);
+    letter-spacing: 0.04em;
+  }
+
+  /* No-results message */
+  .no-results {
+    display: none;
+    padding: 80px 0;
+    text-align: center;
+    color: var(--concrete);
+    font-size: 1rem;
+  }
+
+  /* ---- CTA ---- */
+  .projects-cta {
+    background: var(--slate);
+    padding: 80px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .projects-cta::before {
+    content: 'QUOTE';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 200px;
+    color: rgba(255,255,255,0.025);
+    pointer-events: none;
+  }
+
+  .projects-cta h2 { color: var(--off-white); margin-bottom: 12px; position: relative; }
+  .projects-cta h2 span { color: var(--amber); }
+  .projects-cta p { color: var(--concrete); margin-bottom: 36px; font-size: 1rem; line-height: 1.65; position: relative; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 900px) {
+    .filter-bar { padding: 20px 24px; }
+    .projects-section { padding: 48px 24px 72px; }
+    .projects-masonry.cols-3 { grid-template-columns: repeat(2, 1fr); }
+    .projects-cta { padding: 60px 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .projects-masonry.cols-3,
+    .projects-masonry.cols-2 { grid-template-columns: 1fr; }
+    .project-card.tall img,
+    .project-card.short img,
+    .project-card img { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html" class="logo">ABG <span>Builders</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html" class="active">Projects</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="projects.html" class="active">Projects</a>
+  <a href="services.html">Services</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="mobile-cta">Contact Us</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Our Portfolio</p>
+  <h1>Our Projects</h1>
+  <p>Take a look at some of the work we're proud of — from London extensions and loft conversions to full refurbishments and brand-new builds.</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="extensions">Extensions</button>
+  <button class="filter-btn" data-filter="loft">Loft Conversions</button>
+  <button class="filter-btn" data-filter="refurb">Refurbishments</button>
+  <button class="filter-btn" data-filter="newbuild">New Builds</button>
+  <button class="filter-btn" data-filter="painting">Painting &amp; Decorating</button>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects-section">
+
+  <!-- EXTENSIONS -->
+  <div class="category-group" data-category="extensions">
+    <div class="category-heading">
+      <p class="section-eyebrow" style="margin-bottom:0;">Extensions</p>
+    </div>
+    <div class="projects-masonry cols-2">
+      <div class="project-card tall">
+        <img src="images/ext-1.jpg" alt="Rear extension with bifold doors on London Victorian terrace">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Extension</span>
+            <div class="project-card-title">Rear Extension with Bifold Doors</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card tall">
+        <img src="images/ext-2.jpg" alt="Garden extension with Crittall-style glazed doors">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Extension</span>
+            <div class="project-card-title">Garden Extension — Crittall Glazing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOFT CONVERSIONS -->
+  <div class="category-group" data-category="loft">
+    <div class="category-heading">
+      <p class="section-eyebrow" style="margin-bottom:0;">Loft Conversions</p>
+    </div>
+    <div class="projects-masonry cols-3">
+      <div class="project-card">
+        <img src="images/loft1.png" alt="Converted loft room with sloped ceiling and spotlights">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Loft Conversion</span>
+            <div class="project-card-title">Loft Bedroom Conversion</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" style="grid-column: span 2;">
+        <img src="images/loft2.png" alt="Converted space with skylight and bifold doors" style="height:300px;">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Loft / Extension</span>
+            <div class="project-card-title">Skylight Extension Room</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFURBISHMENTS -->
+  <div class="category-group" data-category="refurb">
+    <div class="category-heading">
+      <p class="section-eyebrow" style="margin-bottom:0;">Refurbishments</p>
+    </div>
+    <div class="projects-masonry cols-3">
+      <div class="project-card tall">
+        <img src="images/bathroom-1.jpg" alt="Luxury bathroom refurbishment with patterned tiles">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Refurbishment</span>
+            <div class="project-card-title">Full Bathroom Renovation</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/refurb-1.jpg" alt="Freshly refurbished room with grey tile flooring">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Refurbishment</span>
+            <div class="project-card-title">Full Room Refurbishment</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/refurb-2.jpg" alt="Open-plan refurbished interior">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Refurbishment</span>
+            <div class="project-card-title">Open-Plan Refurb</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" style="grid-column: span 2;">
+        <img src="images/refurb3.jpeg" alt="Modern open-plan living space" style="height:300px;">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Refurbishment</span>
+            <div class="project-card-title">Open-Plan Living Area</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/render-kitchen-2.jpg" alt="Modern kitchen refurbishment with island">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Refurbishment</span>
+            <div class="project-card-title">Contemporary Kitchen Design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW BUILDS -->
+  <div class="category-group" data-category="newbuild">
+    <div class="category-heading">
+      <p class="section-eyebrow" style="margin-bottom:0;">New Builds</p>
+    </div>
+    <div class="projects-masonry cols-3">
+      <div class="project-card tall">
+        <img src="images/newbuild.png" alt="Aerial view of completed new build detached house">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build</span>
+            <div class="project-card-title">Detached New Build — Aerial View</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/newbuild-1.jpg" alt="Rear of new build property with garden and terrace">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build</span>
+            <div class="project-card-title">New Build — Rear Garden</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/render-kitchen-1.jpg" alt="Modern open-plan kitchen in new build">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build Interior</span>
+            <div class="project-card-title">Open-Plan Kitchen</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/render-dining-1.jpg" alt="Dining area with wooden slatted dividers">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build Interior</span>
+            <div class="project-card-title">Dining &amp; Living Space</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/render-lounge-1.jpg" alt="Luxury lounge with large sectional sofa">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build Interior</span>
+            <div class="project-card-title">Luxury Lounge</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="images/newbuild.jpg" alt="London Victorian period property">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">New Build</span>
+            <div class="project-card-title">Period Property — London</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINTING & DECORATING -->
+  <div class="category-group" data-category="painting">
+    <div class="category-heading">
+      <p class="section-eyebrow" style="margin-bottom:0;">Painting &amp; Decorating</p>
+    </div>
+    <div class="projects-masonry cols-2">
+      <div class="project-card tall">
+        <img src="images/decor.jpeg" alt="Freshly painted Victorian London terrace — white render finish">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Painting &amp; Decorating</span>
+            <div class="project-card-title">Victorian Terrace — Exterior Repaint</div>
+          </div>
+        </div>
+      </div>
+      <div class="project-card tall">
+        <img src="images/paint-1.jpg" alt="ABG Builders team painting a London terrace exterior">
+        <div class="project-card-overlay">
+          <div class="project-card-info">
+            <span class="project-card-cat">Painting &amp; Decorating</span>
+            <div class="project-card-title">Exterior Painting — In Progress</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="no-results" id="no-results">No projects found for this category.</p>
+
+</section>
+
+<!-- CTA -->
+<div class="projects-cta">
+  <h2>Want a Similar Result?</h2>
+  <h2 style="color:var(--amber);font-size:clamp(28px,4vw,52px);margin-bottom:14px;">Let's Talk.</h2>
+  <p>Whether you have detailed plans or just an idea — get in touch and we'll help<br>bring your project to life.</p>
+  <a href="contact.html" class="btn btn-primary" style="position:relative;">Get a Free Quote →</a>
+</div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Extensions</span><span class="dot">✦</span>
+    <span>Loft Conversions</span><span class="dot">✦</span>
+    <span>Refurbishments</span><span class="dot">✦</span>
+    <span>New Builds</span><span class="dot">✦</span>
+    <span>Painting &amp; Decorating</span><span class="dot">✦</span>
+    <span>Building Services</span><span class="dot">✦</span>
+    <span>Extensions</span><span class="dot">✦</span>
+    <span>Loft Conversions</span><span class="dot">✦</span>
+    <span>Refurbishments</span><span class="dot">✦</span>
+    <span>New Builds</span><span class="dot">✦</span>
+    <span>Painting &amp; Decorating</span><span class="dot">✦</span>
+    <span>Building Services</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">ABG <span>Builders</span></a>
+      <p class="footer-tagline">London's trusted construction specialists. Building quality homes and spaces across the capital since 2014.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <div class="footer-heading">Contact Us</div>
+      <p><a href="tel:07974903361">07974 903 361</a></p>
+      
+      <p><a href="tel:07977376215">07977 376 215</a></p>
+      <p style="margin-top:10px;">info@abgbuildersltd.co.uk</p>
+      <p style="margin-top:10px;">London, UK</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 ABG Builders Ltd. All rights reserved.</div>
+    <div class="footer-copy">London, UK</div>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const categoryGroups = document.querySelectorAll('.category-group');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      let anyVisible = false;
+      categoryGroups.forEach(group => {
+        if (filter === 'all' || group.dataset.category === filter) {
+          group.style.display = '';
+          anyVisible = true;
+        } else {
+          group.style.display = 'none';
+        }
+      });
+
+      document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+    });
+  });
+</script>
+</body>
+</html>

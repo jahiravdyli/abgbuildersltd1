@@ -84,8 +84,8 @@ nav {
 
 .logo img {
   padding-top: 20px;
-  padding-bottom: 15px;
-  height: 95px;   /* increase from whatever it currently is, e.g. 40px */
+  padding-bottom: 20px;
+  height: 100px;   /* increase from whatever it currently is, e.g. 40px */
   width: auto;
     display: block;
     

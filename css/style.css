@@ -83,8 +83,8 @@ nav {
 }
 
 .logo img {
-     height: 70px;   /* increase from whatever it currently is, e.g. 40px */
-  width: 170;
+     height: 50px;   /* increase from whatever it currently is, e.g. 40px */
+  width: 1200;
     display: block;
     transition: transform 0.3s ease;
     

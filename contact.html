@@ -439,14 +439,14 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="index.html" class="footer-logo">ABG <span>Builders</span></a>
+      <a href="index.html" class="logo">
+  <img src="images/abg_logo_white.png" alt="ABG Builders Logo">
+ 
+</a>
+<br>
+</br>
       <p class="footer-tagline">London's trusted construction specialists. Building quality homes and spaces across the capital since 2014.</p>
-      <ul class="footer-links">
-        
-        <li> <a href="privacy-policy.html">Privacy Policy</a></li>
-        <li>  <a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
    
-      </ul>
     </div>
     <div>
       <div class="footer-heading">Quick Links</div>
@@ -474,6 +474,15 @@
     <div class="footer-copy">London, UK</div>
   </div>
 </footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+</script>
 
 </body>
 </html>

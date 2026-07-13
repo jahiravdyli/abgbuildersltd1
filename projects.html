@@ -494,14 +494,14 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="index.html" class="footer-logo">ABG <span>Builders</span></a>
+      <a href="index.html" class="logo">
+  <img src="images/abg_logo_white.png" alt="ABG Builders Logo">
+ 
+</a>
+<br>
+</br>
       <p class="footer-tagline">London's trusted construction specialists. Building quality homes and spaces across the capital since 2014.</p>
-      <ul class="footer-links">
-        
-        <li> <a href="privacy-policy.html">Privacy Policy</a></li>
-        <li>  <a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
    
-      </ul>
     </div>
     <div>
       <div class="footer-heading">Quick Links</div>
@@ -531,38 +531,13 @@
 </footer>
 
 <script>
-  // Hamburger
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open');
   });
-
-  // Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const categoryGroups = document.querySelectorAll('.category-group');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      let anyVisible = false;
-      categoryGroups.forEach(group => {
-        if (filter === 'all' || group.dataset.category === filter) {
-          group.style.display = '';
-          anyVisible = true;
-        } else {
-          group.style.display = 'none';
-        }
-      });
-
-      document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
-    });
-  });
 </script>
+
 </body>
 </html>

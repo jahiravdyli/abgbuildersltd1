@@ -71,14 +71,9 @@ nav {
   transition: padding 0.3s;
 }
 
-.logo {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 900;
-  font-size: 1.55rem;
-  color: var(--off-white);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-decoration: none;
+.site-logo {
+  height: 60px;   /* adjust to taste */
+  width: auto;
 }
 
 .logo span { color: var(--amber); }

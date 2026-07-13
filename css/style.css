@@ -83,6 +83,8 @@ nav {
 }
 
 .logo img {
+  margin-top: 20px;
+  margin-bottom: 20px;
   height: 90px;   /* increase from whatever it currently is, e.g. 40px */
   width: auto;
     display: block;

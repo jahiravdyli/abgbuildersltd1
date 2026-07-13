@@ -86,13 +86,13 @@ nav {
   height: 90px;   /* increase from whatever it currently is, e.g. 40px */
   width: auto;
     display: block;
-    
+    transition: transform 0.3s ease;
     
 }
 
 .logo img { 
   filter: brightness(1.8) contrast(1.2); 
-  
+   filter: drop-shadow(0 0 3px rgba(255,255,255,0.5));
 }
 
 .logo img:hover {

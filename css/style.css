@@ -86,7 +86,7 @@ nav {
   padding-top: 23x;
   padding-bottom: 23px;
   height: 120px;   /* increase from whatever it currently is, e.g. 40px */
-  width: 90px;
+  width: auto;
     display: block;
     
     

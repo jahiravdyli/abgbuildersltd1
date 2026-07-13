@@ -78,9 +78,8 @@ nav {
     display: flex;
     align-items: center;
     text-decoration: none;
-     background: #fff;
-     padding: 8px;
-     border-radius: 4px;
+    
+     
 }
 
 .logo img {
@@ -92,6 +91,7 @@ nav {
 
 .logo img { 
   filter: brightness(1.8) contrast(1.2); 
+   filter: drop-shadow(0 0 3px rgba(255,255,255,0.5));
 }
 
 .logo img:hover {
